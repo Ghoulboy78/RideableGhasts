@@ -17,12 +17,25 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(GhastEntity.class)
 public class GhastEntityMixin implements GhastEntityInterface {
 
-    public TrackedData<Integer> BOOST_TIME = DataTracker.registerData(GhastEntity.class, TrackedDataHandlerRegistry.INTEGER);
-    public TrackedData<Boolean> SADDLED = DataTracker.registerData(GhastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    private static final TrackedData<Integer> BOOST_TIME;
+    private static final TrackedData<Boolean> SADDLED;
+
+    static {
+        BOOST_TIME = DataTracker.registerData(GhastEntity.class, TrackedDataHandlerRegistry.INTEGER);
+        SADDLED = DataTracker.registerData(GhastEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
+    }
 
     public SaddledComponent saddledComponent = new SaddledComponent(ghast().getDataTracker(), BOOST_TIME, SADDLED);
 
-    private GhastEntity ghast(){
+    public TrackedData<Boolean> getSaddled() {
+        return SADDLED;
+    }
+
+    public TrackedData<Integer> getBoostTime() {
+        return BOOST_TIME;
+    }
+
+    private GhastEntity ghast() {
         return (GhastEntity) (GhastEntityInterface) this;
     }
 
@@ -45,10 +58,10 @@ public class GhastEntityMixin implements GhastEntityInterface {
     }
 
     @Inject(
-        method = "initDataTracker",
-        at = @At("TAIL")
+            method = "initDataTracker",
+            at = @At("TAIL")
     )
-    private void trackSaddlingData(CallbackInfo ci){
+    private void trackSaddlingData(CallbackInfo ci) {
         ghast().getDataTracker().startTracking(BOOST_TIME, 0);
         ghast().getDataTracker().startTracking(SADDLED, false);
     }
