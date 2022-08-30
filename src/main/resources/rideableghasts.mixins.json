@@ -3,7 +3,8 @@
   "package": "ghoulboy.rideableghasts.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-	"AbsorbWaterMixin"
+    "AbsorbWaterMixin",
+    "GhastEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -15,18 +15,13 @@ public class RideableGhasts implements CarpetExtension, ModInitializer
     @Override
     public String version()
     {
-        return "carpet-extra";
-    }
-
-    public static void loadExtension()
-    {
-        CarpetServer.manageExtension(new RideableGhasts());
+        return "rideableghasts";
     }
 
     @Override
     public void onInitialize()
     {
-        RideableGhasts.loadExtension();
+        CarpetServer.manageExtension(new RideableGhasts());
     }
 
     @Override
@@ -45,7 +40,7 @@ public class RideableGhasts implements CarpetExtension, ModInitializer
     @Override
     public Map<String, String> canHasTranslations(String lang)
     {
-        return new HashMap<String, String>();
+        return new HashMap<>();
         //return CarpetExtraTranslations.getTranslationFromResourcePath(lang);
     }
 }
